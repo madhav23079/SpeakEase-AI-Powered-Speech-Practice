@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SpeakEase – AI Speech Therapy Coach</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <div class="brand">
+          <div class="brand-icon">🗣️</div>
+          <div class="brand-text">
+            <h1>SpeakEase</h1>
+            <p>AI-powered speech practice for stuttering and lisp</p>
+          </div>
+        </div>
+      </header>
+
+      <main class="app-main">
+        <section class="hero">
+          <div class="hero-copy">
+            <h2>Practice your speech with an AI coach.</h2>
+            <p>
+              Speak for 10–20 seconds about anything you like. SpeakEase will
+              listen, estimate patterns related to
+              <strong>stuttering</strong> and <strong>lisp</strong>, and offer
+              <strong>personalized practice exercises</strong>.
+            </p>
+            <p class="disclaimer">
+              This tool is for practice and education only and
+              <strong>does not replace a licensed speech therapist</strong>.
+            </p>
+          </div>
+          <div class="hero-action">
+            <div class="record-card">
+              <div class="record-visual">
+                <div class="pulse-circle" id="pulseCircle"></div>
+              </div>
+              <button id="recordButton" class="record-button">
+                <span id="recordButtonLabel">Start speaking</span>
+              </button>
+              <p id="statusText" class="status-text">
+                Click “Start speaking” and talk for 10–20 seconds.
+              </p>
+              <p id="timerText" class="timer-text">00:00</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="results-grid">
+          <section class="card scores-card">
+            <h3>Analysis</h3>
+            <p class="hint">
+              After you record, we’ll estimate how your speech currently looks
+              across three areas.
+            </p>
+            <div class="score-row">
+              <div class="score-label">
+                <span class="dot dot-stuttering"></span> Stuttering
+              </div>
+              <div class="score-bar">
+                <div
+                  class="score-bar-fill stuttering"
+                  id="stutteringBar"
+                ></div>
+              </div>
+              <div class="score-value" id="stutteringScore">–</div>
+            </div>
+            <div class="score-row">
+              <div class="score-label">
+                <span class="dot dot-lisp"></span> Lisp / articulation
+              </div>
+              <div class="score-bar">
+                <div class="score-bar-fill lisp" id="lispBar"></div>
+              </div>
+              <div class="score-value" id="lispScore">–</div>
+            </div>
+            <div class="score-row">
+              <div class="score-label">
+                <span class="dot dot-fluency"></span> Fluency
+              </div>
+              <div class="score-bar">
+                <div class="score-bar-fill fluency" id="fluencyBar"></div>
+              </div>
+              <div class="score-value" id="fluencyScore">–</div>
+            </div>
+            <p class="duration" id="durationText"></p>
+          </section>
+
+          <section class="card summary-card">
+            <h3>What we heard</h3>
+            <p id="summaryText" class="summary-text">
+              Your personalized summary will appear here after your first
+              recording.
+            </p>
+            <div class="voice-assistant-controls">
+              <button id="voiceButton" class="voice-button">
+                Play AI voice coach
+              </button>
+              <p class="voice-caption">
+                Hear a gentle spoken summary and practice tips based on your
+                latest recording.
+              </p>
+            </div>
+            <ul id="insightsList" class="insights-list"></ul>
+          </section>
+
+          <section class="card practice-card">
+            <div class="card-header-row">
+              <h3>Practice with SpeakEase</h3>
+              <span id="planBadge" class="plan-badge">Ready to start</span>
+            </div>
+            <p class="hint">
+              Use these as short, focused drills. Repeat each exercise 3–5
+              times, staying relaxed and breathing normally.
+            </p>
+            <div id="exercisesContainer" class="exercises"></div>
+            <div class="word-practice">
+              <div class="word-practice-header">
+                <h4>Word Voice Practice</h4>
+                <span id="practiceStatusBadge" class="practice-status-badge"
+                  >Idle</span
+                >
+              </div>
+              <p class="word-practice-hint">
+                Listen to a word, repeat it, and get instant checks. If lisp or
+                stuttering stays high, you will practice the same word up to 3
+                times before moving to the next one.
+              </p>
+              <div class="word-practice-current">
+                <span class="word-practice-label">Current word:</span>
+                <span id="practiceWordText" class="word-practice-word"
+                  >-</span
+                >
+              </div>
+              <p id="practiceProgressText" class="word-practice-progress">
+                Press “Start word practice” to begin.
+              </p>
+              <p id="practiceFeedbackText" class="word-practice-feedback"></p>
+              <div class="word-practice-controls">
+                <button id="startPracticeButton" class="practice-button">
+                  Start word practice
+                </button>
+                <button id="playWordButton" class="practice-button secondary">
+                  Play word voice
+                </button>
+                <button id="repeatWordButton" class="practice-button secondary">
+                  Record repeat
+                </button>
+              </div>
+            </div>
+          </section>
+        </section>
+      </main>
+
+      <footer class="app-footer">
+        <p>
+          SpeakEase is a learning tool and does not provide medical diagnosis.
+          For concerns about stuttering or lisp, please consult a licensed
+          speech-language pathologist.
+        </p>
+      </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </body>
+  </html>
+

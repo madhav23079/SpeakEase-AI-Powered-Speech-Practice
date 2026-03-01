@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SpeakEase | AI Speech Therapy</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #6dd5fa, #ffffff);
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: #0077b6;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+section {
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+}
+
+button {
+  background: #0077b6;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  margin: 10px 0;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+button:hover {
+  background: #023e8a;
+  transform: scale(1.05);
+}
+
+.output {
+  background: #f1f1f1;
+  padding: 15px;
+  border-radius: 6px;
+  margin-top: 15px;
+}
+
+.exercise {
+  background: #caf0f8;
+  padding: 15px;
+  border-left: 5px solid #0077b6;
+  margin-top: 20px;
+}
+
+footer {
+  background: #0077b6;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  margin-top: 40px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>SpeakEase</h1>
+<p>AI-Powered Speech Therapy for Stuttering & Lisp</p>
+</header>
+
+<section>
+<h2>🎤 Speak Now</h2>
+<p>Click start and read this sentence:</p>
+<b>"She sells seashells by the seashore."</b><br>
+
+<button onclick="startListening()">Start Speaking</button>
+
+<div class="output">
+<h3>Recognized Speech:</h3>
+<p id="speechText">---</p>
+
+<h3>AI Feedback:</h3>
+<p id="feedback">---</p>
+</div>
+
+<div class="exercise">
+<h3>🗣️ Practice Exercise</h3>
+<p id="exerciseText">
+Say slowly: <br>
+<b>"ssss sun is shining"</b>
+</p>
+</div>
+</section>
+
+<footer>
+<p>⚠ This tool supports practice and learning. It does not replace professional therapy.</p>
+</footer>
+
+<script>
+const SpeechRecognition =
+  window.SpeechRecognition || window.webkitSpeechRecognition;
+
+const recognition = new SpeechRecognition();
+recognition.lang = "en-US";
+recognition.continuous = false;
+
+function startListening() {
+  recognition.start();
+}
+
+recognition.onresult = function(event) {
+  const transcript = event.results[0][0].transcript;
+  document.getElementById("speechText").innerText = transcript;
+
+  analyzeSpeech(transcript);
+};
+
+function analyzeSpeech(text) {
+  let feedback = "";
+
+  // Detect stuttering (repeated words)
+  let words = text.toLowerCase().split(" ");
+  for (let i = 0; i < words.length - 1; i++) {
+    if (words[i] === words[i + 1]) {
+      feedback += "🟠 Possible stuttering detected (word repetition).<br>";
+      break;
+    }
+  }
+
+  // Detect lisp (simple pattern)
+  if (text.includes("th")) {
+    feedback += "🟡 Possible lisp sound detected (s → th).<br>";
+  }
+
+  if (feedback === "") {
+    feedback = "🟢 Speech sounds clear! Keep practicing 👏";
+  }
+
+  document.getElementById("feedback").innerHTML = feedback;
+}
+</script>
+
+</body>
+</html>
